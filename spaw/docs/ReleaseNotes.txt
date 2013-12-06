@@ -1,0 +1,22 @@
+SPAW Editor PHP Edition
+version 1.2.4
+Release Notes
+
+This release fixes security vulnerability in image library. This affects
+installations on versions of PHP earlier than 4.4.3 and 5.1.4 with 
+register_globals turned on only.
+
+Check out ChangeLog.txt for the list of new features and bugfixes.
+
+If you are fluent in any of languages that are now included and 
+see any typos or mistakes please report to spaw@solmetra.com
+
+Don't forget that you can get answers to your questions by
+visiting our support forun at http://forums.solmetra.com and
+don't forget to help fellow developers looking for answers to
+the questions of your expertise
+
+Happy editing,
+Alan Mendelevich a.k.a. ailon
+alan@solmetra.com
+

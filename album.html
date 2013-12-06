@@ -1,0 +1,95 @@
+//////////Add this where you want the album to show up at....//////////
+
+<script src="http://" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+var dimension="3x2" //Specify dimension of gallery (number of images shown), such as 4x2, 3x1 etc
+var imagepath="http://www.deltoria.com/images/album/full/" //Absolute path to image directory. Include trailing slash (/)
+var href_target="new" //Enter target attribute of links, if applicable
+
+//Toggle popup link setting: popupsetting[0 or 1, "pop up window attributes" (if 1)]
+var popupsetting=[1, "width=500px, height=400px, scrollbars, resizable"]
+
+//Toggle image description: descriptionprefix[0 or 1, "Text to show" (if 1)]
+var descriptionprefix=[1, "Photo "]
+
+//Sort images by date? ("asc", "desc", or "")
+//"desc" for example causes the newest images to show up first in the gallery
+//"" disables this feature, so images are sorted by file name (default)
+var gsortorder="desc"
+
+//By default, each image hyperlinks to itself.
+//However, if you wish them to link to larger versions of themselves
+//Specify the directory in which the larger images are located
+//The file names of these large images should be the same
+//Enter a blank string ("") to disable this option
+var targetlinkdir="http://www.deltoria.com/images/album/full"
+
+/////No need to edit beyond here///////////////////
+
+function sortbydate(a, b){ //Sort images function
+if (gsortorder=="asc") //sort by file date: older to newer
+return new Date(a[1])-new Date(b[1])
+else if (gsortorder=="desc") //sort by file date: newer to older
+return new Date(b[1])-new Date(a[1])
+}
+
+if (gsortorder=="asc" || gsortorder=="desc")
+galleryarray.sort(sortbydate)
+
+var totalslots=dimension.split("x")[0]*dimension.split("x")[1]
+
+function buildimage(i){
+var imagecompletepath=(targetlinkdir!="")? targetlinkdir+galleryarray[i][0] : imagepath+galleryarray[i][0]
+var tempcontainer='<a href="'+imagecompletepath+'" target="'+href_target+'" onClick="return popuplinkfunc(this)">'
+tempcontainer+='<img src="'+imagepath+galleryarray[i][0]+'" title="'+galleryarray[i][0]+' ['+galleryarray[i][1]+']" />'
+tempcontainer+='</a><br />'
+tempcontainer+=(descriptionprefix[0]==1)? descriptionprefix[1]+(i+1) : ""
+return tempcontainer
+}
+
+function jumptopage(p){
+var startpoint=(p-1)*totalslots
+var y=1;
+for (i=0; i<totalslots; i++){
+document.getElementById("slide"+i).innerHTML=(typeof galleryarray[startpoint+i]!="undefined")? buildimage(startpoint+i) : ""
+}
+while(document.getElementById("navlink"+y)!=null){
+document.getElementById("navlink"+y).className=""
+y++
+}
+document.getElementById("navlink"+p).className="current"
+}
+
+var curimage=0
+for (y=0; y<dimension.split("x")[1]; y++){
+for (x=0; x<dimension.split("x")[0]; x++){
+if (curimage<galleryarray.length)
+document.write('<div id="slide'+curimage+'" class="slideshow">'+buildimage(curimage)+'</div>')
+curimage++
+}
+document.write('<br style="clear: left" />')
+}
+
+function popuplinkfunc(imgsrc){
+if (popupsetting[0]==1){
+var popwin=open(imgsrc.href, "popwin", popupsetting[1])
+popwin.focus()
+return false
+}
+else
+return true
+}
+
+</script>
+
+<!--Below HTML code refers to the navigational links for the gallery-->
+
+<div id="navlinks">
+<script type="text/javascript">
+for (i=1; i<Math.ceil(galleryarray.length/totalslots)+1; i++)
+document.write('<a id="navlink'+i+'" href="javascript:jumptopage('+i+')\">Page'+i+'</a> ')
+document.getElementById("navlink1").className="current"
+</script>
+</div>

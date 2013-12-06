@@ -1,0 +1,28 @@
+<style type="text/css">
+
+.slideshow{ /*CSS for DIV containing each image*/
+float: left;
+margin-right: 10px;
+margin-bottom: 10px;
+}
+
+.slideshow img{ /*CSS for each image tag*/
+border: 0;
+width: 200px;
+height: 106px;
+}
+
+#navlinks{ /*CSS for DIV containing the navigational links*/
+width: 400px;
+}
+
+#navlinks a{ /*CSS for each navigational link*/
+margin-right: 8px;
+margin-bottom: 3px;
+font-size: 110%;
+}
+
+#navlinks a.current{ /*CSS for currently selected navigational link*/
+background-color: yellow;
+}
+</style>
